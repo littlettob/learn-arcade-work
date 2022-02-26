@@ -1,136 +1,173 @@
+# Lab 5 Loop Due 2/24/2022
+import arcade
 
-#Camel Game Due 2/17/2022
-import random
-
-# Introduction to the game
-print("Welcome to Camel!")
-print("You have stolen a camel to make your way across the Mobi Desert.")
-print("The natives want their camel back and are chasing you down! Survive your")
-print("Desert trek and out run the natives.")
-
-# create all the variables
-oasis = -1
-playerdistance = 0
-nativedistance = -20
-cameltiredness = 0
-thirst = 0
-canteen = 3
-
-done = False
-
-# make a game loop
-while not done :
-    # user options to pick
-    print("A. Drink from your canteen.")
-    print("B. Ahead moderate speed.")
-    print("C. Ahead full speed.")
-    print("D. Stop for the night.")
-    print("E. Status check.")
-    print("Q. Quit.")
+COLUMN_SPACING = 10
+ROW_SPACING = 10
+LEFT_MARGIN = 5
+BOTTOM_MARGIN = 5
 
 
 
-    # user's input choice
-    user_choice = input("What will you do? ")
+def draw_section_outlines():
+    # Draw squares on bottom
+    arcade.draw_rectangle_outline(150, 150, 300, 300, arcade.color.BLACK)
+    arcade.draw_rectangle_outline(450, 150, 300, 300, arcade.color.BLACK)
+    arcade.draw_rectangle_outline(750, 150, 300, 300, arcade.color.BLACK)
+    arcade.draw_rectangle_outline(1050, 150, 300, 300, arcade.color.BLACK)
 
-    # if user want to quit
-    if user_choice.upper() == "Q" :
-        done = True
-    # status update for user
-    elif user_choice.upper() == "E" :
-        print("Miles traveled:", playerdistance)
-        print("Drinks in canteen:", canteen)
-        print("The natives are", playerdistance - nativedistance, "miles behind you.")
-
-    # if user choice to stop for the night
-    elif user_choice.upper() == "D" :
-        cameltiredness = 0
-        print("Camel is happy")
-        nativedistance += random.randrange(7, 14)
-
-    # if user choice to full speed ahead
-    elif user_choice.upper() == "C" :
-        miles = random.randrange(10, 20)
-        playerdistance += miles
-        thirst += 1
-        cameltiredness += random.randrange(1, 3)
-        nativedistance += random.randrange(7, 14)
-        # chance of finding an oasis
-        oasis = random.randrange(20)
-        if oasis == 10 :
-            thirst = 0
-            cameltiredness = 0
-            canteen = 3
-            print("You travel upon an oasis!")
-            print("your canteen and your stomach filled with water")
-        else :
-            print("You move forward total of", miles, "miles")
-            print("More Thirty")
-            print("The natives still chasing.")
-
-    # if user choice to mid-speed ahead
-    elif user_choice.upper() == "B" :
-        miles = random.randrange(5, 12)
-        playerdistance += miles
-        thirst += 1
-        cameltiredness += 1
-        playerdistance += random.randrange(7, 14)
-
-        # chance of finding an oasis
-        oasis = random.randrange(20)
-        if oasis == 10 :
-            thirst = 0
-            cameltiredness = 0
-            canteen = 3
-            print("You travel upon an oasis!")
-            print("your canteen and your stomach filled with water")
-        else :
-            print("You move forward total of", miles, "miles")
-            print("More Thirty")
-            print("The natives still chasing.")
+    # Draw squares on top
+    arcade.draw_rectangle_outline(150, 450, 300, 300, arcade.color.BLACK)
+    arcade.draw_rectangle_outline(450, 450, 300, 300, arcade.color.BLACK)
+    arcade.draw_rectangle_outline(750, 450, 300, 300, arcade.color.BLACK)
+    arcade.draw_rectangle_outline(1050, 450, 300, 300, arcade.color.BLACK)
 
 
-    # if user choice to drink from canteen
+def draw_section_1():
+    # Loop for each column
+    for row in range(30):
+        # Loop for each column
+        # Change the number of columns depending on the row we are in
+        for column in range(30):
+            # Calculate our location
+            x = column * COLUMN_SPACING + LEFT_MARGIN
+            y = row * ROW_SPACING + BOTTOM_MARGIN
 
-    elif user_choice.upper() == "A" :
-        if canteen > 0 :
-            canteen -= 1
-            thirst = 0
-            print("You are thirsty")
-        else:
-            print("Your canteen is empty.")
-
-    # status updates (thirsty)
-    if thirst > 6 :
-        print("You died of thirst!")
-        print("Game Over.")
-        done = True
-    elif thirst > 4 :
-        print("You are thirsty!")
-    # distance traveled win check
-    if playerdistance >= 200 :
-        print("""The natives are getting close!
-You made it across the desert! You won!""")
-
-        done = True
-    # camel's tiredness status
-    if cameltiredness > 8 :
-        print("Your camel is dead.")
-        print("The natives catch you and kill you")
-        print("Game Over.")
-        done = True
-    elif cameltiredness > 5 :
-        print("Your camel is getting tired.")
+            # Draw the item
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
 
 
-    # Natives distance from you
-    if playerdistance - nativedistance <= 0 :
-        print("The natives have caught up with you!")
-        print("Game Over.")
-        done = True
-    elif playerdistance - nativedistance < 15 :
-        print("The natives are getting close!")
+def draw_section_2():
+    # Below, replace "pass" with your code for the loop.
+    # Use the modulus operator and an if statement to select the color
+    # Don't loop from 30 to 60 to shift everything over, just add 300 to x.
+    # Loop for each column
+    for row in range(30):
+        # Loop for each column
+        # Change the number of columns depending on the row we are in
+        for column in range(30):
+            # Calculate our location
+            x = 300 + column * COLUMN_SPACING + LEFT_MARGIN
+            y = row * ROW_SPACING + BOTTOM_MARGIN
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
 
-#the message from win or lose or quit game
-print("Exiting Game.")
-input()
+         #   if x % 10==0:
+
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.BLACK)
+
+
+    pass
+
+
+def draw_section_3():
+    # Use the modulus operator and an if/else statement to select the color.
+    # Don't use multiple 'if' statements.
+    for row in range(30):
+        # Loop for each column
+        # Change the number of columns depending on the row we are in
+        for column in range(30):
+            # Calculate our location
+            x = 900 + column * COLUMN_SPACING + LEFT_MARGIN
+            y = row * ROW_SPACING + BOTTOM_MARGIN
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.BLACK)
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
+
+    pass
+
+
+def draw_section_4():
+    # Use the modulus operator and just one 'if' statement to select the color.
+    for row in range(30):
+        # Loop for each column
+        # Change the number of columns depending on the row we are in
+        for column in range(30):
+            # Calculate our location
+            x = 600 + column * COLUMN_SPACING + LEFT_MARGIN
+            y = row * ROW_SPACING + BOTTOM_MARGIN
+
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.BLACK)
+    pass
+
+
+def draw_section_5():
+    for column in range(30):
+        # Loop for each column
+        # Change the number of columns depending on the row we are in
+        for row in range(column):
+            # Calculate our location
+            x = column * COLUMN_SPACING + LEFT_MARGIN
+            y = 300 + row * ROW_SPACING + BOTTOM_MARGIN
+
+            # Draw the item
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
+    pass
+
+
+def draw_section_6():
+    for row in range(30):
+        # Loop for each column
+        # Change the number of columns depending on the row we are in
+        for column in range(30-row):
+            # Calculate our location
+            x = 300 + column * COLUMN_SPACING + LEFT_MARGIN
+            y = 300 + row * ROW_SPACING + BOTTOM_MARGIN
+
+            # Draw the item
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
+    pass
+
+
+def draw_section_7():
+    for row in range(30):
+        # Loop for each column
+        # Change the number of columns depending on the row we are in
+        for column in range(row):
+            # Calculate our location
+            x = 600 + column * COLUMN_SPACING + LEFT_MARGIN
+            y = 300 + row * ROW_SPACING + BOTTOM_MARGIN
+
+            # Draw the item
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
+    pass
+
+
+def draw_section_8():
+    for column in range(30):
+        # Loop for each column
+        # Change the number of columns depending on the row we are in
+        for row in range(30-(column+1),30):
+            # Calculate our location
+            x = 900 + column * COLUMN_SPACING + LEFT_MARGIN
+            y = 300 + row * ROW_SPACING + BOTTOM_MARGIN
+
+            # Draw the item
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
+    pass
+
+
+def main():
+    # Create a window
+    arcade.open_window(1200, 600, "Lab 05 - Loopy Lab")
+    arcade.set_background_color(arcade.color.AIR_FORCE_BLUE)
+
+    arcade.start_render()
+
+    # Draw the outlines for the sections
+    draw_section_outlines()
+
+    # Draw the sections
+    draw_section_1()
+    draw_section_2()
+    draw_section_3()
+    draw_section_4()
+    draw_section_5()
+    draw_section_6()
+    draw_section_7()
+    draw_section_8()
+
+    arcade.finish_render()
+
+    arcade.run()
+
+
+main()
